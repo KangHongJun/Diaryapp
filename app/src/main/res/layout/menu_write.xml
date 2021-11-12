@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="날짜 선택" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -72,8 +73,8 @@
                 android:hint="제목입력" />
 
             <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="100dp"
+                android:id="@+id/spinner_category"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom" />
 
@@ -81,13 +82,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/edit_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_Layout"
+        android:layout_above="@id/Save_button"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/textView4"
+            android:id="@+id/Diary_contents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -96,5 +99,38 @@
             />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/Save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="저장" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+        <CalendarView
+            android:id="@+id/Calender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+
+            />
+
+        <Button
+            android:id="@+id/Finish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:visibility="invisible"
+            android:text="선택완료" />
+
+    </FrameLayout>
 
 </RelativeLayout>

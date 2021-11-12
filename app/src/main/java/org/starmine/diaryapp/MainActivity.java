@@ -1,17 +1,14 @@
 package org.starmine.diaryapp;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
-    Mainmenu main_menu;
-    Writemenu write_menu;
-    BottomNavigationView bottomNavigation;
+    Button write_button;
 
 
     @Override
@@ -19,33 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        main_menu = new Mainmenu();
-        write_menu = new Writemenu();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,main_menu).commit();
-
-        bottomNavigation = findViewById(R.id.bottom_nav);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        write_button = findViewById(R.id.Write_button);
+        write_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem Item) {
-                switch (Item.getItemId()){
-                    case R.id.main:
-                        Toast.makeText(getApplicationContext(),"첫번째",Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.write:
-                        Toast.makeText(getApplicationContext(),"두번째",Toast.LENGTH_SHORT).show();
-                        return true;
-                }
-
-                return false;
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Writemenu.class);
+                startActivity(intent);
             }
         });
-    }
-    public void onTabSelected(int position){
-        if(position == 0){
-            bottomNavigation.setSelectedItemId(R.id.main);
-        }else if(position == 1){
-            bottomNavigation.setSelectedItemId(R.id.write);
-        }
+
     }
 }
+
