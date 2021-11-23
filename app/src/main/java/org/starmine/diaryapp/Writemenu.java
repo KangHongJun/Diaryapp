@@ -55,6 +55,7 @@ public class Writemenu extends AppCompatActivity {
         SimpleDateFormat MonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         SimpleDateFormat DayFormat = new SimpleDateFormat("dd", Locale.KOREA);
 
+
         year.setText(YearFormat.format(date) + "년");
         month.setText(MonthFormat.format(date) + "월");
         day.setText(DayFormat.format(date) + "일");
@@ -128,7 +129,8 @@ public class Writemenu extends AppCompatActivity {
                 sqlDB = Helper.getWritableDatabase();
                 Helper.onCreate(sqlDB);
 
-                Toast.makeText(getApplicationContext(), Cdate+setTitle.getText()+Scate+diaryContent.getText() ,Toast.LENGTH_LONG).show();
+                //cdate를 년 월 일 형식으로로
+               Toast.makeText(getApplicationContext(), Cdate+setTitle.getText()+Scate+diaryContent.getText() ,Toast.LENGTH_LONG).show();
                 sqlDB.execSQL("insert into diary values( '"+Cdate +"', '"+setTitle.getText().toString()+"', '"+ Scate+"', '"+diaryContent.getText().toString()+"')");
 
                 sqlDB.close();

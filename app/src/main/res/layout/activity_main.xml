@@ -13,4 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="일기작성" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/Main_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionColor="#00F"/>
+
+    <TextView
+        android:id="@+id/caltext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
