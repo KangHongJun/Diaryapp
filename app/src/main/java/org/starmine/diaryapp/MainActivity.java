@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView dayyy;
     DBHelper Helper;
     SQLiteDatabase sqlDB;
+    static int check;
     static String day_st,title_st,cate_st,content_st;
     static String year;
     static String month;
@@ -95,8 +96,20 @@ public class MainActivity extends AppCompatActivity {
 
                 for(int i=0;i<day_list.length;i++){
                     if (day_list[i].equals(cdate)){
+                        check = i;
                         dayyy.setText(title_list[i]);
                         check_button.setVisibility(View.VISIBLE);
+                        check_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getApplicationContext(),Checkdiary.class);
+                                intent.putExtra("day",day_list[check]);
+                                intent.putExtra("title",title_list[check]);
+                                intent.putExtra("cate",cate_list[check]);
+                                intent.putExtra("content",content_list[check]);
+                                startActivity(intent);
+                            }
+                        });
                         break;
                     }else if(!day_list[i].equals(cdate)){
                         dayyy.setText("내용없음");
@@ -115,6 +128,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
 

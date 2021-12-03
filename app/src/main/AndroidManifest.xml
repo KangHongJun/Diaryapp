@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Writemenu"/>
+        <activity android:name=".Checkdiary"/>
     </application>
 
 </manifest>
