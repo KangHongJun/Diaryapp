@@ -3,6 +3,7 @@ package org.starmine.diaryapp;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -39,14 +40,11 @@ public class Writemenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_write);
-
         setTitle = findViewById(R.id.SetTitle);
         diaryContent = findViewById(R.id.Diary_contents);
-
         year = findViewById(R.id.Year);
         month = findViewById(R.id.Month);
         day = findViewById(R.id.Day);
-
         calendar = findViewById(R.id.Calender);
         calendar.setVisibility(View.INVISIBLE);
 
@@ -55,15 +53,13 @@ public class Writemenu extends AppCompatActivity {
         SimpleDateFormat MonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         SimpleDateFormat DayFormat = new SimpleDateFormat("dd", Locale.KOREA);
 
-
         year.setText(YearFormat.format(date) + "년");
         month.setText(MonthFormat.format(date) + "월");
         day.setText(DayFormat.format(date) + "일");
-        Cdate = (YearFormat.format(date)+MonthFormat.format(date)+DayFormat.format(date)).toString();
-
+        Cdate = YearFormat.toString();
+        Cdate = (YearFormat.toString()+MonthFormat.toString()+DayFormat.toString());
 
         final String[] cate = {"일상", "꿈일기", "잡생각", "기타"};
-
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cate);
         category = findViewById(R.id.spinner_category);
@@ -74,10 +70,8 @@ public class Writemenu extends AppCompatActivity {
                 cateN = position;
                 Scate = cate[cateN];
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -105,35 +99,29 @@ public class Writemenu extends AppCompatActivity {
                 year.setText(Integer.toString(selectYear) + "년");
                 month.setText(Integer.toString(selectMonth+1) + "월");
                 day.setText(Integer.toString(selectDay) + "일");
-                Cdate = (Integer.toString(selectYear)+Integer.toString(selectMonth+1)+Integer.toString(selectDay)).toString();
-
-                Toast.makeText(getApplicationContext(),
-                        Integer.toString(selectYear)+Integer.toString(selectMonth+1)+Integer.toString(selectDay),
-                        Toast.LENGTH_SHORT).show();
+                Cdate = (Integer.toString(selectYear)+Integer.toString(selectMonth+1)+Integer.toString(selectDay));
 
                 calendar.setVisibility(View.INVISIBLE);
                 finish_button.setVisibility(View.INVISIBLE);
             }
         });
-
-        //DB
-
+        
         save_button = findViewById(R.id.Save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DBHelper Helper;
                 SQLiteDatabase sqlDB;
                 Helper = new DBHelper(Writemenu.this,"DiaryDB.db",null,1);
                 sqlDB = Helper.getWritableDatabase();
                 Helper.onCreate(sqlDB);
 
-                //cdate를 년 월 일 형식으로로
-               Toast.makeText(getApplicationContext(), Cdate+setTitle.getText()+Scate+diaryContent.getText() ,Toast.LENGTH_LONG).show();
-                sqlDB.execSQL("insert into diary values( '"+Cdate +"', '"+setTitle.getText().toString()+"', '"+ Scate+"', '"+diaryContent.getText().toString()+"')");
-
+                String DTitle = setTitle.getText().toString()+"";
+                String DContent = diaryContent.getText().toString()+"";
+                sqlDB.execSQL("insert into diary values( '"+Cdate +"', '"+DTitle+"', '"+ Scate+"', '"+DContent+"')");
                 sqlDB.close();
+
+                setResult(0);
                 finish();
             }
         });
@@ -141,6 +129,7 @@ public class Writemenu extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(1);
                 finish();
             }
         });

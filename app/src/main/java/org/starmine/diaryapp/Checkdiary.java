@@ -47,9 +47,9 @@ public class Checkdiary extends AppCompatActivity {
         Gcate = Check_intent.getStringExtra("cate");
         Gcontent = Check_intent.getStringExtra("content");
 
-        setTitle = findViewById(R.id.SetTitle);
-        diaryContent = findViewById(R.id.Diary_contents);
-
+        setTitle = findViewById(R.id.TitleText);
+        diaryContent = findViewById(R.id.DiaryText);
+        category = findViewById(R.id.Scategory);
 
         year = findViewById(R.id.Year);
         month = findViewById(R.id.Month);
@@ -63,11 +63,20 @@ public class Checkdiary extends AppCompatActivity {
         diaryContent.setText(Gcontent);
 
         final String[] cate = {"일상", "꿈일기", "잡생각", "기타"};
+        if(Gcate==cate[0]){
+            category.setSelection(0);
+        }else if (Gcate==cate[1]){
+            category.setSelection(1);
+        }else if (Gcate==cate[2]) {
+            category.setSelection(2);
+        }else if (Gcate==cate[3]) {
+            category.setSelection(3);
+        }
 
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cate);
-        category = findViewById(R.id.spinner_category);
         category.setAdapter(adapter);
+
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -85,20 +94,19 @@ public class Checkdiary extends AppCompatActivity {
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DBHelper Helper;
                 SQLiteDatabase sqlDB;
                 Helper = new DBHelper(Checkdiary.this,"DiaryDB.db",null,1);
                 sqlDB = Helper.getWritableDatabase();
                 Helper.onCreate(sqlDB);
 
-                Toast.makeText(getApplicationContext(), Cdate+setTitle.getText()+
-                        Scate+diaryContent.getText() ,Toast.LENGTH_LONG).show();
-
                 String Title = setTitle.getText().toString();
-
+                String Content = diaryContent.getText().toString();
                 sqlDB.execSQL("update diary set setTitle='"+Title+"'where Cdate = "+Gday+"");
+                sqlDB.execSQL("update diary set diaryContent='"+Content+"'where Cdate = "+Gday+"");
                 sqlDB.close();
+
+                setResult(0);
                 finish();
             }
         });
@@ -106,16 +114,10 @@ public class Checkdiary extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                setResult(1);
                 finish();
             }
         });
-    }
-
-    public long getLongDate(int year, int month, int date){
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.DAY_OF_MONTH,date);
-        calendar.set(Calendar.MONTH,month-1);
-        calendar.set(Calendar.YEAR,year);
-        return calendar.getTimeInMillis();
     }
 }

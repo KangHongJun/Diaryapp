@@ -16,15 +16,12 @@ public class CalendarDecorator implements DayViewDecorator {
         this.color = color;
         this.dates = new HashSet<>(dates);
     }
-
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         return dates.contains(day);
     }
-
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new DotSpan(10,color));
-
     }
 }

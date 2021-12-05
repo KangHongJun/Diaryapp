@@ -59,14 +59,14 @@
                 android:text="제목 : " />
 
             <EditText
-                android:id="@+id/SetTitle"
+                android:id="@+id/TitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="8"
                 android:hint="" />
 
             <Spinner
-                android:id="@+id/spinner_category"
+                android:id="@+id/Scategory"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom" />
@@ -83,7 +83,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/Diary_contents"
+            android:id="@+id/DiaryText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
